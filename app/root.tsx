@@ -7,6 +7,8 @@ import {
 } from "@remix-run/react";
 import type { LinksFunction } from "@remix-run/node";
 
+import "~/tests/example.test"
+
 import "./tailwind.css";
 
 export const links: LinksFunction = () => [
@@ -40,6 +42,21 @@ export function Layout({ children }: { children: React.ReactNode }) {
   );
 }
 
+const runBareMinimumClient = () => {
+  /*
+    Trying to run a bare minimum example on the client side:
+    In the negative sample, `ah` returns an empty header object. 
+    This shows in the msw update, the Headers copy constructor is no longer working.
+    However, it works fine in this experiment.
+  */
+    const h = new Headers();
+    h.set("Content-Type", "application/json");
+    console.log(h);
+    const ah = new Headers(h);
+    console.log(ah);
+}
+
 export default function App() {
+  runBareMinimumClient();
   return <Outlet />;
 }
